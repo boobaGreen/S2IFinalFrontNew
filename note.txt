@@ -1,0 +1,3 @@
+funziona signup e verify mail e app atuh proctected
+voglio fare login  , attnezione in sign up togliere forget password e metterlo in login 
+gestire login with google e login with github
