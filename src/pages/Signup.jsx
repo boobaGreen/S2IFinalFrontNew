@@ -1,3 +1,4 @@
+//Signup.jsx
 import Axios from "axios";
 
 import { useForm } from "react-hook-form";
@@ -5,18 +6,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
-
 const schema = yup.object().shape({
   userName: yup
     .string()
     .min(3, "Username must be at least 3 characters")
-    .max(30, "Username must be at least 30 characters")
+    .max(30, "Username must be at max 30 characters")
     .required("Username is required"),
   email: yup.string().required("Email is required").email("Email is invalid"),
   password: yup
     .string()
     .min(8, "Password must be at least 8 characters")
-    .max(20, "Password must be at least 20 characters")
+    .max(20, "Password must be at max 20 characters")
     .required("Password is required"),
   passwordConfirm: yup
     .string()
@@ -124,12 +124,12 @@ function Signup() {
                 </div>
               </div>
             </div>
-            <button
+            {/* <button
               onClick={goToForgetPassword}
               className="text-s text-purple-600 hover:underline"
             >
               Forget Password?
-            </button>
+            </button> */}
 
             <div className="flex items-center mt-4">
               <button

@@ -1,7 +1,6 @@
-// AuthUtils.js
+// authUtils.js
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
-
 
 export function isUserAuthenticated() {
   const jwtToken = Cookies.get("jwt");

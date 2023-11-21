@@ -1,3 +1,18 @@
-funziona signup e verify mail e app atuh proctected
-voglio fare login  , attnezione in sign up togliere forget password e metterlo in login 
 gestire login with google e login with github
+
+
+funziona signup e verify mail e app atuh proctected
+fatto login  ,
+ fatto attenzione in sign up togliere forget password e metterlo in login 
+
+fatto navbar diverse voci e link a seconda del auth
+
+quando loggato visualizza dati user in navbar
+poi fare forgot password
+poi fare logout
+
+
+secret github oauth
+6b4b1ecfefcbd4161f44cce08f31d6e6528d210a
+client id github oauth
+f201a6ab03adea4d8a0f

@@ -1,13 +1,15 @@
+//App.jsx
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./components/AppLayout";
-import { isUserAuthenticated } from "./auth/AuthUtils";
+import { isUserAuthenticated } from "./auth/authUtils";
 import Home from "./pages/Home";
 import Cover from "./pages/Cover";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import ForgetPassword from "./pages/ForgetPassword";
 
 function App() {
   // const isAuthenticated = isUserAuthenticated();
@@ -44,9 +46,12 @@ function App() {
               !isAuthenticated ? <ConfirmAccount /> : <Navigate to="/home" />
             }
           />
-          {/* 
-     
-        */}
+          <Route
+            path="forgetPassword"
+            element={
+              !isAuthenticated ? <ForgetPassword /> : <Navigate to="/home" />
+            }
+          />
 
           <Route path="*" element={<PageNotFound />} />
         </Route>

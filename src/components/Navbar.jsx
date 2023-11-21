@@ -1,3 +1,4 @@
+//Navbar.jsx
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import DarkModeToggle from "../elements/DarkModeToggle";
@@ -6,7 +7,10 @@ import StartDark from "../icons/StartDark";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import { useNavigate } from "react-router-dom";
 
+import { useAuthMode } from "../contexts/AuthModeProvider";
+
 const Navbar = () => {
+  const { isAuth } = useAuthMode();
   const navigate = useNavigate();
   const goToHome = () => navigate("/home");
   // State to manage the navbar's visibility
@@ -14,19 +18,31 @@ const Navbar = () => {
 
   // eslint-disable-next-line no-unused-vars
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  let navItems = [];
 
   // Toggle function to handle the navbar's display
   const handleNav = () => {
     setNav(!nav);
   };
-
-  // Array containing navigation itemsclassificationleaderboard
-  const navItems = [
-    { id: 1, text: "Quiz" },
-    { id: 2, text: "Leaderboard" },
-    { id: 3, text: "About" },
-    { id: 4, text: "Logout" },
-  ];
+  const handleNavItemClick = (route) => {
+    console.log("route: ", route);
+    navigate(`/${route}`);
+    setNav(false); // Close the mobile menu after navigating
+  };
+  isAuth
+    ? // Array containing navigation itemsclassificationleaderboard
+      (navItems = [
+        { id: 1, text: "Home" }, //home app
+        { id: 2, text: "Leaderboard" },
+        { id: 3, text: "About" },
+        { id: 4, text: "Logout" },
+      ])
+    : (navItems = [
+        { id: 1, text: "Home" }, //cover
+        { id: 2, text: "SignUp" },
+        { id: 3, text: "Login" },
+        { id: 4, text: "About" },
+      ]);
 
   return (
     <div
@@ -56,6 +72,7 @@ const Navbar = () => {
         {navItems.map((item) => (
           <li
             key={item.id}
+            onClick={() => handleNavItemClick(item.text.toLowerCase())}
             className="p-4 hover:bg-lime-300 rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
           >
             {item.text}
@@ -91,6 +108,7 @@ const Navbar = () => {
         {navItems.map((item) => (
           <li
             key={item.id}
+            onClick={() => handleNavItemClick(item.text.toLowerCase())}
             className="p-4 border-b rounded-xl hover:bg-lime-300 duration-300 hover:text-black cursor-pointer border-gray-600"
           >
             {item.text}
