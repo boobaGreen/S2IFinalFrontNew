@@ -20,7 +20,7 @@ function ConfirmAccount() {
 
         const { token } = response.data;
         Cookies.set("jwt", token, { secure: true, sameSite: "strict" });
-        setLoadingStatus("tokenReceived");
+        if (token) setLoadingStatus("tokenReceived");
         console.log("loadingStatus in token", loadingStatus);
       } catch (error) {
         console.error("Errore durante la richiesta GET:", error);
