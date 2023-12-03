@@ -40,7 +40,7 @@ const Navbar = () => {
     : (navItems = [
         { id: 1, text: "Home" }, //cover
         { id: 2, text: "SignUp" },
-        { id: 3, text: "Login" },
+        { id: 3, text: "SignIn" },
         { id: 4, text: "About" },
       ]);
 

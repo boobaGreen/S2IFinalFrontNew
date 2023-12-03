@@ -16,3 +16,6 @@ secret github oauth
 6b4b1ecfefcbd4161f44cce08f31d6e6528d210a
 client id github oauth
 f201a6ab03adea4d8a0f
+
+
+dopo register fare pagina contolal la tua mail

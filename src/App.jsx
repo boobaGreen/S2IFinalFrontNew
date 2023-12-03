@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ConfirmAccount from "./pages/ConfirmAccount";
 import ForgetPassword from "./pages/ForgetPassword";
+import GoogleOauth from "./pages/googleOauth";
 
 function App() {
   // const isAuthenticated = isUserAuthenticated();
@@ -50,6 +51,12 @@ function App() {
             path="forgetPassword"
             element={
               !isAuthenticated ? <ForgetPassword /> : <Navigate to="/home" />
+            }
+          />
+          <Route
+            path="googleOauth"
+            element={
+              !isAuthenticated ? <GoogleOauth /> : <Navigate to="/home" />
             }
           />
 

@@ -24,7 +24,19 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Confirm Password does not match"),
   // acceptTerms: yup.bool().oneOf([true], "Accept Terms is required"),
 });
-
+const handleGoogleLogin = async () => {
+  try {
+    // Effettua una richiesta al tuo backend per avviare il processo di autenticazione con Google
+    const response = await Axios.get(
+      "http://localhost:3005/api/v1/users/requestUrlOgoogle"
+    );
+    console.log(response, "  :response");
+    // Reindirizza l'utente alla pagina di autenticazione di Google
+    window.location.href = response.data.url;
+  } catch (error) {
+    console.error("Errore durante l'accesso con Google:", error);
+  }
+};
 function Signup() {
   const navigate = useNavigate();
   const goToLogin = () => navigate("/login");
@@ -160,6 +172,7 @@ function Signup() {
             <button
               aria-label="Login with Google"
               type="button"
+              onClick={handleGoogleLogin}
               className="flex items-center justify-center w-full p-2 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400"
             >
               <svg
