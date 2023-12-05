@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 import ConfirmAccount from "./pages/ConfirmAccount";
 import ForgetPassword from "./pages/ForgetPassword";
 import GoogleOauth from "./pages/googleOauth";
+import Logout from "./pages/Logout";
+import About from "./pages/About";
 
 function App() {
   // const isAuthenticated = isUserAuthenticated();
@@ -21,13 +23,15 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route index element={<Navigate replace to="cover" />} />
-
           {/* Rotte protette per utenti autenticati */}
           <Route
             path="home"
             element={isAuthenticated ? <Home /> : <Navigate to="/" />}
           />
-
+          <Route
+            path="logout"
+            element={isAuthenticated ? <Logout /> : <Navigate to="/" />}
+          />
           {/* Rotte pubbliche accessibili solo agli utenti non autenticati */}
           <Route
             path="cover"
@@ -59,7 +63,8 @@ function App() {
               !isAuthenticated ? <GoogleOauth /> : <Navigate to="/home" />
             }
           />
-
+          {/* route accessibbili allo stesso modo da utenti autrntificati o NO */}
+          <Route path="about" element={<About />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

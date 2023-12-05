@@ -1,20 +1,19 @@
 import Cookies from "js-cookie";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function GoogleOauth() {
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const token = new URLSearchParams(location.search).get("token");
     console.log("Token:", token);
     Cookies.set("jwt", token, { secure: true, sameSite: "strict" });
-    // Salva il token come cookie HTTP-only
-    // document.cookie = `jwt=${token}; path=/; secure; samesite=none; httponly`;
 
-    // Puoi anche fare altre azioni, come reindirizzare l'utente alla home page, ecc.
-    // window.location.href = "http://localhost:4000/";
-  }, [location]);
+    window.location.reload();
+    navigate("/home");
+  }, [location, navigate]);
 
   return (
     <div>

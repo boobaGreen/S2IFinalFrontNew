@@ -1,23 +1,32 @@
-
-//AuthModeProvider.jsx
+// AuthModeProvider.jsx
 import { createContext, useContext, useEffect, useState } from "react";
-import { isUserAuthenticated } from "../auth/authUtils";
+import { isUserAuthenticated, validateUserToken } from "../auth/authUtils";
 
 const AuthModeContext = createContext();
 
 function AuthModeProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
+  const [name, setName] = useState(null);
 
-  useEffect(
-    function () {
+  useEffect(() => {
+    async function fetchData() {
+      // verificare se controllare anche se e' scaduto il token jwt?
+      // funzione gia' esistente in AuthUtils.js
       const auth = isUserAuthenticated();
       setIsAuth(auth);
-    },
-    [isAuth, setIsAuth]
-  );
+
+      if (auth) {
+        const userName = await validateUserToken();
+        setName(userName);
+        console.log("name ", userName);
+      }
+    }
+
+    fetchData();
+  }, []); // The dependency array should be empty since we only want this effect to run once on mount
 
   return (
-    <AuthModeContext.Provider value={{ isAuth }}>
+    <AuthModeContext.Provider value={{ isAuth, name }}>
       {children}
     </AuthModeContext.Provider>
   );

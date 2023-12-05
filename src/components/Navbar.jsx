@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuthMode } from "../contexts/AuthModeProvider";
 
 const Navbar = () => {
-  const { isAuth } = useAuthMode();
+  const { isAuth, name } = useAuthMode();
+  console.log("name in nav bar", name);
   const navigate = useNavigate();
   const goToHome = () => navigate("/home");
   // State to manage the navbar's visibility
@@ -40,7 +41,7 @@ const Navbar = () => {
     : (navItems = [
         { id: 1, text: "Home" }, //cover
         { id: 2, text: "SignUp" },
-        { id: 3, text: "SignIn" },
+        { id: 3, text: "Login" },
         { id: 4, text: "About" },
       ]);
 
