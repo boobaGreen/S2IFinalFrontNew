@@ -7,6 +7,8 @@ const AuthModeContext = createContext();
 function AuthModeProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
   const [name, setName] = useState(null);
+  const [role, setRole] = useState(null);
+  const [id, setId] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -16,9 +18,13 @@ function AuthModeProvider({ children }) {
       setIsAuth(auth);
 
       if (auth) {
-        const userName = await validateUserToken();
-        setName(userName);
-        console.log("name ", userName);
+        const userNow = await validateUserToken();
+
+        console.log("userNow in authMode: ", userNow);
+
+        setName(userNow.username);
+        setRole(userNow.role);
+        setId(userNow.id);
       }
     }
 
@@ -26,7 +32,7 @@ function AuthModeProvider({ children }) {
   }, []); // The dependency array should be empty since we only want this effect to run once on mount
 
   return (
-    <AuthModeContext.Provider value={{ isAuth, name }}>
+    <AuthModeContext.Provider value={{ isAuth, name, role, id }}>
       {children}
     </AuthModeContext.Provider>
   );

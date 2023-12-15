@@ -1,4 +1,4 @@
-//Navbar.jsx
+// Navbar.jsx
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import DarkModeToggle from "../elements/DarkModeToggle";
@@ -6,12 +6,13 @@ import StartNormal from "../icons/StartNormal";
 import StartDark from "../icons/StartDark";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import { useNavigate } from "react-router-dom";
-
 import { useAuthMode } from "../contexts/AuthModeProvider";
 
 const Navbar = () => {
-  const { isAuth, name } = useAuthMode();
+  const { isAuth, name, role } = useAuthMode();
+  // const { isAuth, name, role, userId } = useAuthMode();
   console.log("name in nav bar", name);
+  console.log("role in nav bar", role);
   const navigate = useNavigate();
   const goToHome = () => navigate("/home");
   // State to manage the navbar's visibility
@@ -34,9 +35,11 @@ const Navbar = () => {
     ? // Array containing navigation itemsclassificationleaderboard
       (navItems = [
         { id: 1, text: "Home" }, //home app
-        { id: 2, text: "Leaderboard" },
-        { id: 3, text: "About" },
-        { id: 4, text: "Logout" },
+        { id: 2, text: "Profile" },
+        { id: 3, text: "Manage" },
+        { id: 4, text: "Details" },
+        { id: 5, text: "About" },
+        { id: 6, text: "Logout" },
       ])
     : (navItems = [
         { id: 1, text: "Home" }, //cover
@@ -45,6 +48,10 @@ const Navbar = () => {
         { id: 4, text: "About" },
       ]);
 
+  // Aggiungi "Manage Course" solo per "admin" e "mod"
+  if (isAuth && (role === "admin" || role === "mod")) {
+    navItems.push({ id: 7, text: "ManageAdmin" });
+  }
   return (
     <div
       className={`white flex justify-between items-center h-24 max-w-full mx-auto px-4  ${

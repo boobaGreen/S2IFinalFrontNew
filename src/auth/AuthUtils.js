@@ -20,7 +20,13 @@ export async function validateUserToken() {
       }
     );
 
-    return response.data.userName; // Restituisce i dati dell'utente
+    const userNow = {
+      username: response.data.userName,
+      role: response.data.role,
+      id: response.data._id,
+    };
+    console.log("id userNowm authutils.js", userNow.id);
+    return userNow; // Restituisce i dati dell'utente
   } catch (error) {
     console.error("Errore nella validazione del token:", error);
     return null; // Gestione errore, assume che il token non sia valido

@@ -3,7 +3,6 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./components/AppLayout";
-import { isUserAuthenticated } from "./auth/authUtils";
 import Home from "./pages/Home";
 import Cover from "./pages/Cover";
 import Signup from "./pages/Signup";
@@ -13,11 +12,14 @@ import ForgetPassword from "./pages/ForgetPassword";
 import GoogleOauth from "./pages/googleOauth";
 import Logout from "./pages/Logout";
 import About from "./pages/About";
+import ManageAdmin from "./pages/ManageAdmin";
+import Manage from "./pages/Manage";
+import { useAuthMode } from "./contexts/AuthModeProvider";
+import GroupList from "./pages/GroupList";
 
 function App() {
-  // const isAuthenticated = isUserAuthenticated();
-  const isAuthenticated = isUserAuthenticated();
-
+  const { isAuth, name, role, userId } = useAuthMode();
+  const admin = role === "admin";
   return (
     <BrowserRouter>
       <Routes>
@@ -26,42 +28,45 @@ function App() {
           {/* Rotte protette per utenti autenticati */}
           <Route
             path="home"
-            element={isAuthenticated ? <Home /> : <Navigate to="/" />}
+            element={isAuth ? <Home /> : <Navigate to="/" />}
           />
           <Route
             path="logout"
-            element={isAuthenticated ? <Logout /> : <Navigate to="/" />}
+            element={isAuth ? <Logout /> : <Navigate to="/" />}
+          />
+          <Route path="manageAdmin" element={admin ? <ManageAdmin /> : null} />
+          <Route
+            path="manage"
+            element={isAuth ? <Manage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="details"
+            element={isAuth ? <GroupList /> : <Navigate to="/" />}
           />
           {/* Rotte pubbliche accessibili solo agli utenti non autenticati */}
           <Route
             path="cover"
-            element={!isAuthenticated ? <Cover /> : <Navigate to="/home" />}
+            element={!isAuth ? <Cover /> : <Navigate to="/home" />}
           />
           <Route
             path="signup"
-            element={!isAuthenticated ? <Signup /> : <Navigate to="/home" />}
+            element={!isAuth ? <Signup /> : <Navigate to="/home" />}
           />
           <Route
             path="login"
-            element={!isAuthenticated ? <Login /> : <Navigate to="/home" />}
+            element={!isAuth ? <Login /> : <Navigate to="/home" />}
           />
           <Route
             path="confirmAccount/:token"
-            element={
-              !isAuthenticated ? <ConfirmAccount /> : <Navigate to="/home" />
-            }
+            element={!isAuth ? <ConfirmAccount /> : <Navigate to="/home" />}
           />
           <Route
             path="forgetPassword"
-            element={
-              !isAuthenticated ? <ForgetPassword /> : <Navigate to="/home" />
-            }
+            element={!isAuth ? <ForgetPassword /> : <Navigate to="/home" />}
           />
           <Route
             path="googleOauth"
-            element={
-              !isAuthenticated ? <GoogleOauth /> : <Navigate to="/home" />
-            }
+            element={!isAuth ? <GoogleOauth /> : <Navigate to="/home" />}
           />
           {/* route accessibbili allo stesso modo da utenti autrntificati o NO */}
           <Route path="about" element={<About />} />
